@@ -1,6 +1,5 @@
 <script>
 	let ideas = [];
-	let count = 0;
 
 	const addIdea = (e) => {
 		ideas = [
@@ -8,14 +7,13 @@
 			{
 				title: e.target[0].value,
 				content: e.target[1].value,
-				id: count
+				id: Date.now()
 			}
 		];
-		count++;
 	};
 
 	const removeIdea = (i) => {
-		ideas = ideas.filter((idea, index) => i !== index);
+		ideas = ideas.filter((idea) => i !== idea.id);
 	}
 
 </script>
@@ -30,11 +28,12 @@
 </form>
 
 <ul>
-	{#each ideas as idea, i (idea.id)}
+	{#each ideas as {title, content, id}}
 		<li>
-			<h1>{idea.title}</h1>
-			<span>{idea.content}</span>
-			<button on:click={() => removeIdea(i)}>Delete Idea</button>
+			<h1>{title}</h1>
+			<span>{content}</span>
+			<div>{id}</div>
+			<button on:click={() => removeIdea(id)}>Delete Idea</button>
 		</li>
 	{/each}
 </ul>
