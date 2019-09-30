@@ -45,11 +45,13 @@
 				{quality}
 				<button
 					on:click={() => decreaseQuality(index)}
+					disabled="{quality === 'meh'}"
 				>
 						-
 				</button>
 				<button
 					on:click={() => increaseQuality(index)}
+					disabled="{quality === 'mega dope'}"
 				>
 					+
 				</button>
