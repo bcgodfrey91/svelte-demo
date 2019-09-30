@@ -5,15 +5,24 @@
 		ideas = [
 			...ideas,
 			{
+				id: Date.now(),
 				title: e.target[0].value,
 				content: e.target[1].value,
-				id: Date.now()
+				quality: 'meh'
 			}
 		];
 	};
 
-	const removeIdea = (i) => {
-		ideas = ideas.filter((idea) => i !== idea.id);
+	const removeIdea = (id) => {
+		ideas = ideas.filter((idea) => id !== idea.id);
+	}
+
+	const increaseQuality = (identifier) => {
+		ideas[identifier].quality = ideas[identifier].quality === 'meh' ? 'cool I guess' : 'mega dope';
+	}
+
+	const decreaseQuality = (identifier) => {
+		ideas[identifier].quality = ideas[identifier].quality === 'mega dope' ? 'cool I guess' : 'meh';
 	}
 
 </script>
@@ -28,11 +37,23 @@
 </form>
 
 <ul>
-	{#each ideas as {title, content, id}}
+	{#each ideas as {id, title, content, quality}, index (id)}
 		<li>
 			<h1>{title}</h1>
 			<span>{content}</span>
-			<div>{id}</div>
+			<div>
+				{quality}
+				<button
+					on:click={() => decreaseQuality(index)}
+				>
+						-
+				</button>
+				<button
+					on:click={() => increaseQuality(index)}
+				>
+					+
+				</button>
+			</div>
 			<button on:click={() => removeIdea(id)}>Delete Idea</button>
 		</li>
 	{/each}
