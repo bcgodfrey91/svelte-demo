@@ -28,35 +28,86 @@
 </script>
 
 <style>
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin: 0 2.5vw;
+		width: 100%;
+	}
+
+	.idea-form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: 29.5rem;
+	}
+
+	.form-input,
+	.form-textarea {
+		border-radius: .3rem;
+		width: 100%;
+	}
+
+	.form-input {
+		font-size: 1.5rem;
+		height: 3rem;
+	}
+
+	.form-textarea {
+		height: 7rem;
+		resize: none;
+	}
+
 </style>
 
-<form on:submit|preventDefault={addIdea}>
-	<input />
-	<textarea />
-	<button>Post Idea</button>
-</form>
+<div class="container">
+	<form on:submit|preventDefault={addIdea} class="idea-form">
+		<input class="form-input" />
+		<textarea class="form-textarea" />
+		<button class="post-idea">Post Idea</button>
+	</form>
+</div>
 
-<ul>
+<ul class="idea-list container">
 	{#each ideas as {id, title, content, quality}, index (id)}
-		<li>
-			<h1>{title}</h1>
-			<span>{content}</span>
-			<div>
-				{quality}
-				<button
-					on:click={() => decreaseQuality(index)}
-					disabled="{quality === 'meh'}"
-				>
-						-
-				</button>
-				<button
-					on:click={() => increaseQuality(index)}
-					disabled="{quality === 'mega dope'}"
-				>
-					+
-				</button>
+		<li class="idea">
+			<h1 class="title">
+				{title}
+			</h1>
+			<span class="content">
+				{content}
+			</span>
+			<div class="quality-container">
+				<span class="quality">
+					{quality}
+				</span>
+				<div class="button-container">
+					<button
+						on:click={() => decreaseQuality(index)}
+						disabled="{quality === 'meh'}"
+						class="{quality === 'meh' ? 'disabled quality-button' : 'quality-button'}"
+					>
+							-
+					</button>
+					<button
+						on:click={() => increaseQuality(index)}
+						disabled="{quality === 'mega dope'}"
+						class="{quality === 'mega dope' ? 'disabled quality-button' : 'quality-button'}"
+					>
+						+
+					</button>
+				</div>
 			</div>
-			<button on:click={() => removeIdea(id)}>Delete Idea</button>
+			<button
+				on:click={() => removeIdea(id)}
+				class="delete-idea"
+			>
+				Delete Idea
+			</button>
 		</li>
 	{/each}
 </ul>
