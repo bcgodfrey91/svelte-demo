@@ -1,16 +1,20 @@
 <script>
 	let ideas = [];
+	let title = '';
+	let content = ''
 
 	const addIdea = (e) => {
 		ideas = [
 			...ideas,
 			{
 				id: Date.now(),
-				title: e.target[0].value,
-				content: e.target[1].value,
+				title: title,
+				content: content,
 				quality: 'meh'
 			}
 		];
+		title = '';
+		content = '';
 	};
 
 	const removeIdea = (id) => {
@@ -109,6 +113,10 @@
 		padding: 0.25rem 0.5rem;
 	}
 
+	.quality-button:hover {
+		cursor: pointer;
+	}
+
 	.downvote {
 		background: #8d8ff8;
     padding: 0.25rem 0.64rem;
@@ -118,12 +126,37 @@
 		background: #f84201;
 	}
 
-	.disabled {
+	.disabled,
+	.post-disabled {
 		background: #f4f4f4;
+	}
+
+	.disabled:hover,
+	.post-disabled:hover {
+		cursor: initial;
+	}
+
+	.post-idea-button,
+	.delete-idea-button,
+	.post-disabled {
+		border-radius: 0.3rem;
+		padding: 0.75rem 0;
+		width: 100%;
+		max-width: 6.44rem;
 	}
 
 	.delete-idea-button {
 		margin-bottom: 1rem;
+	}
+
+	.post-idea-button:hover {
+		background: #37d2a7;
+		cursor: pointer;
+	}
+
+	.delete-idea-button:hover {
+		background: #ff0000;
+		cursor: pointer;
 	}
 
 </style>
@@ -132,13 +165,23 @@
 	<form on:submit|preventDefault={addIdea} class="idea-form">
 		<div class="form-input-container">
 			<span>Idea</span>
-			<input class="form-input" />
+			<input
+				bind:value={title}
+				class="form-input"
+			/>
 		</div>
 		<div class="form-textarea-container">
 			<span>Description</span>
-			<textarea class="form-textarea" />
+			<textarea
+				bind:value={content}
+				class="form-textarea"
+			/>
 		</div>
-		<button class="post-idea">Post Idea</button>
+		<button
+			class="{title.length && content.length ? 'post-idea-button' : 'post-disabled'}"
+		>
+			Post Idea
+		</button>
 	</form>
 </div>
 
