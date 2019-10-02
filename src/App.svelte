@@ -164,14 +164,14 @@
 <div class="idea-container container">
 	<form on:submit|preventDefault={addIdea} class="idea-form">
 		<div class="form-input-container">
-			<span>Idea</span>
+			<label for="title">Idea</label>
 			<input
 				bind:value={title}
 				class="form-input"
 			/>
 		</div>
 		<div class="form-textarea-container">
-			<span>Description</span>
+			<label for="content">Description</label>
 			<textarea
 				bind:value={content}
 				class="form-textarea"
