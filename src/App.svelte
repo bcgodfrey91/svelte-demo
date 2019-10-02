@@ -37,7 +37,8 @@
 		width: 100%;
 	}
 
-	.idea-form {
+	.idea-form,
+	.idea {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -48,7 +49,7 @@
 
 	.form-input,
 	.form-textarea {
-		border-radius: .3rem;
+		border-radius: 0.3rem;
 		width: 100%;
 	}
 
@@ -60,6 +61,38 @@
 	.form-textarea {
 		height: 7rem;
 		resize: none;
+	}
+
+	.idea-list {
+		padding: 0;
+	}
+
+	.idea {
+		border: 1px solid black;
+		border-radius: 0.3rem;
+		text-decoration: none;
+	}
+
+	.content {
+		margin-bottom: 1rem;
+	}
+
+	.quality-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 0.5rem;
+		width: 100%;
+		max-width: 7rem;
+	}
+
+	.quality-button {
+		margin: 0.5rem;
+		padding: 0.25rem 0.5rem;
+	}
+
+	.delete-idea-button {
+		margin-bottom: 1rem;
 	}
 
 </style>
@@ -104,7 +137,7 @@
 			</div>
 			<button
 				on:click={() => removeIdea(id)}
-				class="delete-idea"
+				class="delete-idea-button"
 			>
 				Delete Idea
 			</button>
