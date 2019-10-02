@@ -37,6 +37,10 @@
 		width: 100%;
 	}
 
+	.idea-container {
+		margin: 2rem 0 3rem;
+	}
+
 	.idea-form,
 	.idea {
 		display: flex;
@@ -47,9 +51,20 @@
 		max-width: 29.5rem;
 	}
 
+	.form-input-container,
+	.form-textarea-container {
+		width: 100%;
+	}
+
+	.form-input-container span,
+	.form-textarea-container span {
+		font-size: 0.85rem;
+	}
+
 	.form-input,
 	.form-textarea {
 		border-radius: 0.3rem;
+		margin-bottom: 1rem;
 		width: 100%;
 	}
 
@@ -70,6 +85,7 @@
 	.idea {
 		border: 1px solid black;
 		border-radius: 0.3rem;
+		margin-bottom: 1rem;
 		text-decoration: none;
 	}
 
@@ -87,8 +103,23 @@
 	}
 
 	.quality-button {
+		font-size: 1.25rem;
+		font-weight: 800;
 		margin: 0.5rem;
 		padding: 0.25rem 0.5rem;
+	}
+
+	.downvote {
+		background: #8d8ff8;
+    padding: 0.25rem 0.64rem;
+	}
+
+	.upvote {
+		background: #f84201;
+	}
+
+	.disabled {
+		background: #f4f4f4;
 	}
 
 	.delete-idea-button {
@@ -97,10 +128,16 @@
 
 </style>
 
-<div class="container">
+<div class="idea-container container">
 	<form on:submit|preventDefault={addIdea} class="idea-form">
-		<input class="form-input" />
-		<textarea class="form-textarea" />
+		<div class="form-input-container">
+			<span>Idea</span>
+			<input class="form-input" />
+		</div>
+		<div class="form-textarea-container">
+			<span>Description</span>
+			<textarea class="form-textarea" />
+		</div>
 		<button class="post-idea">Post Idea</button>
 	</form>
 </div>
@@ -122,14 +159,14 @@
 					<button
 						on:click={() => decreaseQuality(index)}
 						disabled="{quality === 'meh'}"
-						class="{quality === 'meh' ? 'disabled quality-button' : 'quality-button'}"
+						class="{quality === 'meh' ? 'disabled quality-button downvote' : 'quality-button downvote'}"
 					>
 							-
 					</button>
 					<button
 						on:click={() => increaseQuality(index)}
 						disabled="{quality === 'mega dope'}"
-						class="{quality === 'mega dope' ? 'disabled quality-button' : 'quality-button'}"
+						class="{quality === 'mega dope' ? 'disabled quality-button' : 'quality-button upvote'}"
 					>
 						+
 					</button>
