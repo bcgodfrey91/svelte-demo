@@ -1,7 +1,8 @@
 <script>
-	let ideas = [];
+	let ideas = localStorage ? JSON.parse(localStorage.getItem('ideas')) : [];
 	let title = '';
-	let content = ''
+	let content = '';
+	const setLocalIdeas = () => localStorage.setItem('ideas', JSON.stringify(ideas));
 
 	const addIdea = (e) => {
 		ideas = [
@@ -15,18 +16,22 @@
 		];
 		title = '';
 		content = '';
+		setLocalIdeas();
 	};
 
 	const removeIdea = (id) => {
 		ideas = ideas.filter((idea) => id !== idea.id);
+		setLocalIdeas();
 	}
 
 	const increaseQuality = (identifier) => {
 		ideas[identifier].quality = ideas[identifier].quality === 'meh' ? 'cool I guess' : 'mega dope';
+		setLocalIdeas();
 	}
 
 	const decreaseQuality = (identifier) => {
 		ideas[identifier].quality = ideas[identifier].quality === 'mega dope' ? 'cool I guess' : 'meh';
+		setLocalIdeas();
 	}
 
 </script>
