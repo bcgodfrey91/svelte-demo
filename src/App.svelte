@@ -1,9 +1,10 @@
 <script>
-	let ideas = localStorage ? JSON.parse(localStorage.getItem('ideas')) : [];
+	const lsIdeas = JSON.parse(localStorage.getItem('ideas'));
+	const setLocalIdeas = () => localStorage.setItem('ideas', JSON.stringify(ideas));
+	let ideas = lsIdeas ? lsIdeas : [];
 	let title = '';
 	let content = '';
 	let search = ''
-	const setLocalIdeas = () => localStorage.setItem('ideas', JSON.stringify(ideas));
 
 	const addIdea = (e) => {
 		ideas = [
