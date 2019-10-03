@@ -2,6 +2,7 @@
 	let ideas = localStorage ? JSON.parse(localStorage.getItem('ideas')) : [];
 	let title = '';
 	let content = '';
+	let search = ''
 	const setLocalIdeas = () => localStorage.setItem('ideas', JSON.stringify(ideas));
 
 	const addIdea = (e) => {
@@ -34,6 +35,13 @@
 		setLocalIdeas();
 	}
 
+	$: filtered = search.trim().length
+				? ideas.filter(
+						idea => idea.title.toLowerCase().includes(search.toLowerCase())
+						|| idea.content.toLowerCase().includes(search.toLowerCase())
+					)
+				: ideas;
+
 </script>
 
 <style>
@@ -47,11 +55,12 @@
 	}
 
 	.idea-container {
-		margin: 2rem 0 3rem;
+		margin: 2rem 0 2rem;
 	}
 
 	.idea-form,
-	.idea {
+	.idea,
+	.search-input-container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -71,13 +80,15 @@
 	}
 
 	.form-input,
-	.form-textarea {
+	.form-textarea,
+	.search-input {
 		border-radius: 0.3rem;
 		margin-bottom: 1rem;
 		width: 100%;
 	}
 
-	.form-input {
+	.form-input,
+	.search-input {
 		font-size: 1.5rem;
 		height: 3rem;
 	}
@@ -85,6 +96,14 @@
 	.form-textarea {
 		height: 7rem;
 		resize: none;
+	}
+
+	.search-input-container {
+		margin-bottom: 2rem;
+	}
+
+	.hidden {
+		display: none;
 	}
 
 	.idea-list {
@@ -190,8 +209,16 @@
 	</form>
 </div>
 
+<div class="{ideas.length ? 'search-input-container' : 'hidden'}">
+	<input
+		bind:value={search}
+		class="search-input"
+		placeholder="Search Ideas"
+	/>
+</div>
+
 <ul class="idea-list container">
-	{#each ideas as {id, title, content, quality}, index (id)}
+	{#each filtered as {id, title, content, quality}, index (id)}
 		<li class="idea">
 			<h1 class="title">
 				{title}
