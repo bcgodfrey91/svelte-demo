@@ -203,6 +203,7 @@
 			/>
 		</div>
 		<button
+			disabled="{!title.length || !content.length}"
 			class="{title.length && content.length ? 'post-idea-button' : 'post-disabled'}"
 		>
 			Post Idea
